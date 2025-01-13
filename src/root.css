@@ -1,0 +1,38 @@
+:root {
+    --primary-color: #138ff4;
+    --primary-text: #fff;
+    --primary-hover: #1782da;
+}
+
+.primary-bg {
+    background-color: var(--primary-color);
+}
+
+.primary {
+    color: var(--primary-text);
+}
+
+.primary-btn {
+    transition: 0.3s ease-in-out;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+}
+
+.animation-blink{
+    animation: blink 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Animations */
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
