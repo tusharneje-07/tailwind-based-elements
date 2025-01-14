@@ -2,8 +2,14 @@
     --primary-color: #138ff4;
     --primary-text: #fff;
     --primary-hover: #1782da;
+
+    --secondary-color: #fff;
+    --secondary-text: #138ff4;
+    --secondary-hover: #fbfbfb;
 }
 
+
+/* Primary */
 .primary-bg {
     background-color: var(--primary-color);
 }
@@ -20,6 +26,20 @@
     background-color: var(--primary-hover);
 }
 
+.primary-border{
+    border-color: var(--primary-color);
+}
+
+/* Secondary */
+.secondary-bg{
+    background-color: var(--secondary-color);
+}
+.secondary{
+    color: var(--secondary-text);
+}
+.secondary-border{
+    border-color: var(--secondary-color);
+}
 .animation-blink{
     animation: blink 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
