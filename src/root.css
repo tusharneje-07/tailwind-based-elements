@@ -6,6 +6,13 @@
     --secondary-color: #fff;
     --secondary-text: #138ff4;
     --secondary-hover: #fbfbfb;
+
+
+    --success-color: #3dcb55;
+    --success-text: #ffffff;
+    --success-hover: #43be4c;
+
+
 }
 
 
@@ -43,11 +50,28 @@
     border-color: var(--secondary-color);
 }
 
+/* Success */
+.success{
+    color: var(--success-text);
+}
+
+.success-bg {
+    background-color: var(--success-color);
+}
+
+.success-btn {
+    transition: 0.3s ease-in-out;
+}
+
+.success-btn:hover {
+    background-color: var(--success-hover);
+}
+
+/* Animations */
 .animation-blink {
     animation: blink 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Animations */
 @keyframes blink {
 
     0%,

@@ -151,16 +151,30 @@
         <!-- Flip Content Button [Animation~Button] -->
         <div class="relative group">
             <!-- Front Button -->
-            <button class="absolute inset-0 primary-btn primary primary-bg px-5 py-2 font-semibold rounded transform ease-in-out transition-opacity duration-500 group-hover:opacity-0">
+            <button
+                class="absolute inset-0 primary-btn primary primary-bg px-5 py-2 font-semibold rounded transform ease-in-out transition-opacity duration-500 group-hover:opacity-0">
                 Default Text
             </button>
-          
+
             <!-- Back Button -->
-            <button class="inset-0 primary primary-bg px-5 py-2 font-semibold rounded transform opacity-0 ease-in-out transition-opacity duration-500 group-hover:opacity-100">
-              Hoverd Text
+            <button
+                class="inset-0 primary primary-bg px-5 py-2 font-semibold rounded transform opacity-0 ease-in-out transition-opacity duration-500 group-hover:opacity-100">
+                Hoverd Text
             </button>
-          </div>
-          
+        </div>
+
+
+        <div class="flex items-center justify-center h-screen">
+            <!-- Hidden Checkbox -->
+            <input type="checkbox" id="toggle" class="peer hidden" />
+
+            <!-- Toggle Button -->
+            <label for="toggle"
+                class="cursor-pointer success-btn success success-bg px-5 py-2 font-semibold rounded transition-colors duration-300 peer-checked:bg-red-500 before:content-['OFF'] peer-checked:before:content-['ON']">
+                
+            </label>
+        </div>
+
 
 
 
