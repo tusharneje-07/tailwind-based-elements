@@ -20,3 +20,24 @@ document.addEventListener('click', (e) => {
         dropdown.classList.add('hidden');
     }
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    function togglePasswordField() {
+        const openEye = document.getElementById('eye-open');
+        const closeEye = document.getElementById('eye-close');
+        const passwordField = document.getElementById('password-field');
+
+        if (!passwordField || !openEye || !closeEye) {
+            console.error("One or more elements not found");
+            return;
+        }
+
+        openEye.classList.toggle("hidden");
+        closeEye.classList.toggle("hidden");
+
+        passwordField.type = passwordField.type === "password" ? "text" : "password";
+        passwordField.focus();
+    }
+    window.togglePasswordField = togglePasswordField;
+});
