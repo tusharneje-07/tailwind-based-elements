@@ -16,7 +16,7 @@
     --basic-card-border: #9d2a2a;
     --basic-card-color: rgba(207, 207, 207, 0.5);
 
-    
+
     --basic-input-color: #F3F3F3;
     --basic-input-placeholder: #868686;
 
@@ -58,7 +58,7 @@
 }
 
 /* Success */
-.success{
+.success {
     color: var(--success-text);
 }
 
@@ -93,31 +93,42 @@
 
 
 /* Card BG */
-.basic-card{
+.basic-card {
     background-color: var(--basic-card-color);
     border: 1px solid var(--basic-card-border);
 }
 
-.basic-card-img{
+.basic-card-img {
     background: url('/src/imgs/card-bg.jpg') center center/cover no-repeat;
 }
 
-.basic-card-grad{
-    background: rgb(34,23,106);
-background: -moz-linear-gradient(90deg, rgba(34,23,106,1) 0%, rgba(174,174,255,1) 45%, rgba(33,31,107,1) 100%);
-background: -webkit-linear-gradient(90deg, rgba(34,23,106,1) 0%, rgba(174,174,255,1) 45%, rgba(33,31,107,1) 100%);
-background: linear-gradient(90deg, rgba(34,23,106,1) 0%, rgba(174,174,255,1) 45%, rgba(33,31,107,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22176a",endColorstr="#211f6b",GradientType=1);
+.basic-card-grad {
+    background: rgb(34, 23, 106);
+    background: -moz-linear-gradient(90deg, rgba(34, 23, 106, 1) 0%, rgba(174, 174, 255, 1) 45%, rgba(33, 31, 107, 1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(34, 23, 106, 1) 0%, rgba(174, 174, 255, 1) 45%, rgba(33, 31, 107, 1) 100%);
+    background: linear-gradient(90deg, rgba(34, 23, 106, 1) 0%, rgba(174, 174, 255, 1) 45%, rgba(33, 31, 107, 1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#22176a", endColorstr="#211f6b", GradientType=1);
 }
 
 
 
 /* fields */
-.basic-input{
+.basic-input {
     background-color: var(--basic-input-color);
 }
 
 
-.basic-input-placeholder, .basic-input-placeholder::placeholder{
+.basic-input-placeholder,
+.basic-input-placeholder::placeholder {
     color: var(--basic-input-placeholder);
+}
+
+.image-btn {
+    background-image: url('./imgs/profile.jpg');
+    background-size: cover;
+    background-position: center;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
 }
