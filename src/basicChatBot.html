@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="output.css">
+    </head>
+    <body class="bg-slate-800 m-0 p-0 h-screen w-full flex justify-center">
+
+        <!-- TOP BAR -->
+        <div
+            class="bg-slate-200 w-full h-16 flex flex-row justify-between px-3 fixed">
+
+            <div class="flex flex-row justify-center items-center gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                    class="w-6 h-6 fill-black"><path
+                        d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z" /></svg>
+
+                <div
+                    class="flex flex-col justify-start items-start leading-none">
+                    <span class="text-black text-lg font-bold">
+                        ChatBot
+                    </span>
+                    <span class="text-xs">
+                        This is a ChatBot
+                    </span>
+                </div>
+            </div>
+
+            <div class="w-min h-full flex justify-end items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                    class="w-7 h-7 m-3">
+                    <path
+                        d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+                </svg>
+            </div>
+
+        </div>
+
+        <div id="chatinterface"
+            class="flex flex-col gap-3 h-screen w-full overflow-y-scroll pt-20 mx-3">
+
+            <!-- AI CHAT -->
+            <!-- <div class="ai-chat">
+                Hello User, How Can I Help You?
+            </div> -->
+
+            <!-- AI THINK -->
+            <!-- <div class="flex gap-2">
+                <div
+                    class="w-12 h-12 flex bg-slate-200 rounded-full justify-center items-center p-2">
+                    <img src="chat.png" alt>
+                </div>
+
+                <div
+                    class="flex gap-1 h-12 w-auto bg-slate-200 p-3 justify-center items-center rounded-md">
+                    <div
+                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
+                    </div>
+                    <div
+                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
+                    </div>
+                    <div
+                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
+                    </div>
+                </div>
+            </div> -->
+
+            <!-- User MSG -->
+            <!-- <div class="flex w-full h-min justify-end">
+                <div class="ai-chat">
+                    Hello User, How Can I Help You?
+                </div>
+            </div> -->
+
+        </div>
+
+        <script>
+            const chatInterface = document.getElementById("chatinterface");
+
+            // Function to add AI Chat message
+            function addAIChat(text) {
+                // Remove AI-THINK if present before adding the response
+                const existingTyping = document.getElementById("ai-think");
+                if (existingTyping) existingTyping.remove();
+
+                const aiDiv = document.createElement("div");
+                aiDiv.className = "ai-chat";
+                aiDiv.innerText = text;
+                chatInterface.appendChild(aiDiv);
+                scrollToBottom();
+            }
+
+            // Function to add AI Think (Typing Indicator)
+            function addAIThink(show) {
+                const existingThinkDiv = document.getElementById("ai-think");
+
+                if (show) {
+                    // If the think div already exists, do nothing
+                    if (existingThinkDiv) return;
+
+                    // Create AI Think (Typing Indicator)
+                    const thinkDiv = document.createElement("div");
+                    thinkDiv.id = "ai-think"; // Unique ID to remove later
+                    thinkDiv.className = "flex gap-2";
+
+                    thinkDiv.innerHTML = `
+                        <div class="w-12 h-12 flex bg-slate-200 rounded-full justify-center items-center p-2">
+                            <img src="chat.png" alt="">
+                        </div>
+                        <div class="flex gap-1 h-12 w-auto bg-slate-200 p-3 justify-center items-center rounded-md">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                    `;
+
+                    chatInterface.appendChild(thinkDiv);
+                } else {
+                    // Remove AI Think if it exists
+                    if (existingThinkDiv) existingThinkDiv.remove();
+                }
+
+                scrollToBottom();
+            }
+
+
+            // Function to add User Chat message
+            function addUserChat(text) {
+                const userDiv = document.createElement("div");
+                userDiv.className = "flex w-full h-min justify-end";
+                userDiv.innerHTML = `<div class="ai-chat">${text}</div>`;
+                chatInterface.appendChild(userDiv);
+                scrollToBottom();
+            }
+
+            // Function to scroll to the bottom
+            function scrollToBottom() {
+                chatInterface.scrollTop = chatInterface.scrollHeight;
+            }
+
+                // Example Usage
+            setTimeout(() => addAIChat("Hello User, How Can I Help You?"), 1000);
+            setTimeout(() => {
+                addUserChat("I need help with.....");
+                setTimeout(() => addAIThink(true),500)
+            }, 3000);
+
+            setTimeout(()=>{
+                addAIChat("What Help?")
+            },5000)
+            
+
+        </script>
+
+    </body>
+</html>
