@@ -2,32 +2,37 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover">
+        <title>ChatBot</title>
         <link rel="stylesheet" href="output.css">
+        <style>
+            ::-webkit-scrollbar {
+                width: 0;
+            }
+        </style>
+        <script
+            src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     </head>
-    <body class="bg-slate-800 m-0 p-0 h-screen w-full flex justify-center">
+    <body
+        class="bg-slate-800 m-0 p-0 w-full flex flex-col overflow-scroll h-screen">
 
         <!-- TOP BAR -->
         <div
-            class="bg-slate-200 w-full h-16 flex flex-row justify-between px-3 fixed">
-
+            class="bg-slate-200 w-full h-16 flex flex-row justify-between px-3 fixed top-0 z-50">
             <div class="flex flex-row justify-center items-center gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
-                    class="w-6 h-6 fill-black"><path
-                        d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z" /></svg>
-
+                    class="w-6 h-6 fill-black">
+                    <path
+                        d="M640-80 240-480l400-400 71 71-329 329 329 329-71 71Z" />
+                </svg>
                 <div
                     class="flex flex-col justify-start items-start leading-none">
-                    <span class="text-black text-lg font-bold">
-                        ChatBot
-                    </span>
-                    <span class="text-xs">
-                        This is a ChatBot
-                    </span>
+                    <span class="text-black text-lg font-bold">ChatBot</span>
+                    <span class="text-xs" id="shight">This is a ChatBot</span>
                 </div>
             </div>
-
             <div class="w-min h-full flex justify-end items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
                     class="w-7 h-7 m-3">
@@ -35,60 +40,73 @@
                         d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
                 </svg>
             </div>
-
         </div>
 
-        <div id="chatinterface"
-            class="flex flex-col gap-3 h-screen w-full overflow-y-scroll pt-20 mx-3">
+        <!-- Chat Interface - This should scroll independently -->
+        <div class="w-full flex flex-col h-full top-">
+            <div id="chatinterface"
+                class="flex flex-col gap-3 w-full pt-20 px-3 flex-1 overflow-scroll">
+                <!-- Chat messages will be added here dynamically -->
+            </div>
 
-            <!-- AI CHAT -->
-            <!-- <div class="ai-chat">
-                Hello User, How Can I Help You?
-            </div> -->
+            <div class="w-full h-16 p-2 flex flex-row gap-1">
+                <input type="text" name="user_chat_data" id="user_chat_data"
+                    class="w-full rounded-md outline-none text-sm pl-2"
+                    placeholder="What Say?" autofocus>
 
-            <!-- AI THINK -->
-            <!-- <div class="flex gap-2">
-                <div
-                    class="w-12 h-12 flex bg-slate-200 rounded-full justify-center items-center p-2">
-                    <img src="chat.png" alt>
-                </div>
+                <button class="flex justify-center items-center bg-white p-3 rounded-md" onclick="user_msg()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-black cursor-pointer" viewBox="0 -960 960 960"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
+                </button>
+            </div>
 
-                <div
-                    class="flex gap-1 h-12 w-auto bg-slate-200 p-3 justify-center items-center rounded-md">
-                    <div
-                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
-                    </div>
-                    <div
-                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
-                    </div>
-                    <div
-                        class="dot w-1 h-1 bg-black rounded-full animate-bounce">
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- User MSG -->
-            <!-- <div class="flex w-full h-min justify-end">
-                <div class="ai-chat">
-                    Hello User, How Can I Help You?
-                </div>
-            </div> -->
-
+            <div class="bg-slate-500 flex w-full h-min p-[0.05rem] justify-center text-[0.5rem] text-white">
+                NutriBot ChatGPT can make mistakes. Check important info.
+            </div>
         </div>
 
         <script>
+            window.visualViewport.addEventListener("resize", () => {
+                document.body.style.height = window.visualViewport.height + "px";
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const input = document.getElementById("user_chat_data");
+                if (input) {
+                input.focus();
+                
+                // For better compatibility on mobile
+                setTimeout(() => {
+                    input.focus();
+                }, 500);
+                }
+            });
+
             const chatInterface = document.getElementById("chatinterface");
 
-            // Function to add AI Chat message
+            // AI CHAT
             function addAIChat(text) {
-                // Remove AI-THINK if present before adding the response
+                // Remove AI-THINK if present
                 const existingTyping = document.getElementById("ai-think");
                 if (existingTyping) existingTyping.remove();
 
                 const aiDiv = document.createElement("div");
-                aiDiv.className = "ai-chat";
-                aiDiv.innerText = text;
+                aiDiv.className = "flex w-full h-min justify-start";
+
+                // Chat bubble
+                const aiBubble = document.createElement("div");
+                aiBubble.className = "ai-chat";
+
+                // Markdown-rendered content
+                const markdownDiv = document.createElement("div");
+                markdownDiv.className = "prose prose-sm [&>*]:m-0 dark:prose-invert max-w-full break-words";
+                
+                // Use `innerHTML` to parse Markdown
+                markdownDiv.innerHTML = marked.parse(text);  
+
+                aiBubble.appendChild(markdownDiv);
+                aiDiv.appendChild(aiBubble);
                 chatInterface.appendChild(aiDiv);
+
                 scrollToBottom();
             }
 
@@ -107,7 +125,7 @@
 
                     thinkDiv.innerHTML = `
                         <div class="w-12 h-12 flex bg-slate-200 rounded-full justify-center items-center p-2">
-                            <img src="chat.png" alt="">
+                            <img src="imgs/chat.png" alt="">
                         </div>
                         <div class="flex gap-1 h-12 w-auto bg-slate-200 p-3 justify-center items-center rounded-md">
                             <div class="dot"></div>
@@ -140,17 +158,31 @@
                 chatInterface.scrollTop = chatInterface.scrollHeight;
             }
 
-                // Example Usage
-            setTimeout(() => addAIChat("Hello User, How Can I Help You?"), 1000);
-            setTimeout(() => {
-                addUserChat("I need help with.....");
-                setTimeout(() => addAIThink(true),500)
-            }, 3000);
+            function user_msg(){
+                document.getElementById("user_chat_data").focus();
+                content = document.getElementById("user_chat_data")
+                addUserChat(content.value)
+                content.value = ""
+            }
 
-            setTimeout(()=>{
-                addAIChat("What Help?")
-            },5000)
-            
+            addAIChat(`
+### 🍎 Welcome to NutriBot! 🥗  
+
+Hello, food lover! 👋 Are you ready to **fuel your body** with the **best nutrition**? 💪🍽️  
+
+I'm **NutriBot**, your friendly guide to **healthy eating, mindful nutrition, and delicious recipes**! 🌱🍲  
+
+#### 🍽️ What I Can Do for You:
+✅ **Suggest healthy meals** based on your preferences 🥑  
+✅ **Calculate your daily calorie needs** 🔢  
+✅ **Provide diet tips for weight management** ⚖️  
+✅ **Give insights into superfoods & nutrition facts** 🧑‍⚕️  
+
+Got a question? Just ask! Let’s make **healthy eating fun & easy!** 🎉🥕  
+ 
+`)
+
+
 
         </script>
 

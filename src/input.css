@@ -4,8 +4,9 @@
 
 @layer utilities {
     .ai-chat {
-        @apply flex p-3 max-w-[75%] min-w-[33%] h-min bg-slate-200 rounded-md;
+        @apply flex flex-col w-fit max-w-[75%] min-w-[33%] h-min bg-slate-200 rounded-md shadow-md p-3 text-black;
     }
+    
 
     @keyframes typingDots {
         0%,
